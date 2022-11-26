@@ -14,8 +14,8 @@ def url_get_contents(url):
     return f.read()
 
 
-#ExcelName = str(today) + ".xlsx"
-ExcelName = today + ".xlsx"
+ExcelName = str(today) + ".xlsx"
+
 ldf = []
 for x in range(0, 200):
     xhtml = url_get_contents(f"https://www.ss.com/en/real-estate/flats/riga/all/page{x}.html").decode('utf-8')
