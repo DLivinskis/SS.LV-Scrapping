@@ -1,48 +1,97 @@
-#Libraries
-from bs4 import BeautifulSoup #to parse HTML data
-import os
 import shutil
-import requests #to get HTML data
-import xlsxwriter #to save scrapped data to the excel spreadsheet
-from datetime import date #to get today's date which will be used in naming of the file
-import re #to get rid of text in price column
-from time import sleep
-#/Libraries
+import requests
+from bs4 import BeautifulSoup
+import urllib.request
+from datetime import date
+import time
+import pandas as pd
+from html_table_parser.parser import HTMLTableParser
 
-#Variables section:
-today = date.today() #variable for name of the end fiel
-current_path_to_file = str(os.getcwd()) + "\\" + str(today) + "_cars.xlsx" #path form which to move the file
-List_with_links = [] #empty list where links will be stored
-url = "https://www.ss.com/en/transport/cars/alfa-romeo/" #url from which we will be getting information
-start_phrase = "/msg/en" #Variable that will be used to sort out only the links for ads. We will skip all other unrealdted links
-#/Variables section
-
-print("Today's date:", today) #print out today's date in terminal; optional step
+today = date.today()
 
 
-response = requests.get(url)
-data_for_soup = response.text
-soup = BeautifulSoup(data_for_soup, "html.parser")
-print(soup.text)
+def url_get_contents(url):
+    req = urllib.request.Request(url=url)
+    f = urllib.request.urlopen(req)
+    return f.read()
+car_list_1 = ['alfa-romeo','chevrolet','chrysler','dacia','dodge','fiat','infiniti','jaguar','jeep','land-rover','lexus','mazda','mercedes','mini','mitsubishi','porsche','saab','seat','smart','subaru','suzuki','vaz'
+]
+car_list_2 = ['audi','citroen','ford','hyundai','nissan','opel','peugeot','renault','toyota','volvo'
+]
+car_list_3 = ['honda','kia','skoda','volkswagen'
+]
+car_list_4 = ['others']
+car_list_5 = ['bmw']
 
-# def Getting_Links(class_to_search, subclass_to_search='',start_phrase='',string_to_add_in_the_beginning=''):
-#     start_phrase = start_phrase
-#     string_to_add_in_the_beginning = string_to_add_in_the_beginning
-#     names = soup.find_all(class_to_search)
-#     for name in names:
-#         entry_to_populate = (name.get(subclass_to_search))
-#         List_with_links.append(entry_to_populate)
-#     updated_list = [name for name in List_with_links if name.startswith(start_phrase)]
-#     updated_list = [string_to_add_in_the_beginning + name for name in List_with_links if name.startswith(start_phrase)]
-#     print(updated_list)
-#
-# Getting_Links("a","href","/msg/en","https://www.ss.com/")
+ExcelName = str(today) + ".xlsx"
+list1 = []
+list2 = []
+ldf = []
+def Get_Number_Of_Ads():
+    response=requests.get('https://www.ss.com/en/transport/cars')
+    print(response.text)
+    # soup = BeautifulSoup(response.text, 'html.parser')
+    # h4_tags = soup.find_all('h4')
+    # for h4 in h4_tags:
+    #     span_tags = h4.find_all('span', recursive=False)
+    #     print(span_tags)
+def Getting_Cars(List_Of_Car_Brands,Table_Number):
+    df2 = pd.DataFrame()
+    for car in List_Of_Car_Brands:
+        for x in range(1, Number_Of_Pages):
+            time.sleep(0.5)
+            xhtml = url_get_contents(f"https://www.ss.com/en/transport/cars/{car}/page{x}.html").decode('utf-8')
+            p = HTMLTableParser()
+            p.feed(xhtml)
+            df1 = pd.DataFrame(p.tables[Table_Number])
 
-# def Getting_b(class_to_search,subclass_to_search):
-#     names = soup.find_all(class_to_search)
-#     for name in names:
-#         entry_to_populate = (name.get(subclass_to_search))
-#         List_with_links.append(entry_to_populate)
-#     print(List_with_links)
-#
-# Getting_b("a","b")
+            print(car)
+
+            df1.rename(
+                columns={0: 'nothing', 1: 'nothing1', 2: 'Text', 3: 'Model', 4: 'Year', 5: 'Engine', 6: 'Mileage',
+                         7: 'Price'}, inplace=True)
+
+            df1.insert(loc=8,
+                       column='Date',
+                       value=today)
+            df1.insert(loc=9,
+                       column='Car Section',
+                       value=car)
+
+
+            try:
+                df1.drop('nothing', inplace=True, axis=1)
+            except:
+                'nothing to drop'
+            try:
+                df1.drop('nothing1', inplace=True, axis=1)
+            except:
+                'nothing to drop'
+            try:
+                df1.drop(0, inplace=True, axis=0)
+            except:
+                'nothing to drop'
+            try:
+                df1.drop(31, inplace=True, axis=0)
+            except:
+                'nothing to drop'
+
+            if df1.equals(df2):
+
+                break
+
+            df2 = df1
+            ldf.append(df1)
+            print(str(car) + " " + "page" + " " + str(x))
+Getting_Cars(car_list_1,6)
+Getting_Cars(car_list_2,7)
+Getting_Cars(car_list_3,5)
+Getting_Cars(car_list_4,2)
+Getting_Cars(car_list_5,3)
+
+pd.concat(ldf).to_excel(ExcelName)
+
+Get_Number_Of_Ads()
+
+time.sleep(5)
+shutil.move(f"W:\\Coding/PythonProjects\\SS.LV_Scrapping\\{ExcelName}",f"W:\\Coding\\PythonProjects\\ScrappedData\\OneDrive\\Cars")
