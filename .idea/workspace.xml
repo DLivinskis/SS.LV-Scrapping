@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0177c8b8-93de-4416-9f25-3a00656f3a11" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test_environment.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Check_if_files_exist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SS.LV-Cars.py" beforeDir="false" afterPath="$PROJECT_DIR$/SS.LV-Cars.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SS.LV_Apartments_Daugavpils.py" beforeDir="false" afterPath="$PROJECT_DIR$/SS.LV_Apartments_Daugavpils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +39,30 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Test_Folder" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.SS.LV-Cars">
+  <component name="RunManager" selected="Python.Check_if_files_exist">
+    <configuration name="Check_if_files_exist" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\Aniki\AppData\Local\Programs\Python\Python310\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Check_if_files_exist.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="MainFile" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="SS.LV_Scrapping" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -127,6 +149,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Check_if_files_exist" />
         <item itemvalue="Python.SS.LV-Cars" />
         <item itemvalue="Python.test_environment" />
         <item itemvalue="Python.SS.LV_Apartments_Daugavpils" />

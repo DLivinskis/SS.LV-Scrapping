@@ -14,14 +14,16 @@ def url_get_contents(url):
     req = urllib.request.Request(url=url)
     f = urllib.request.urlopen(req)
     return f.read()
-car_list_1 = ['alfa-romeo','chevrolet','chrysler','dacia','dodge','fiat','infiniti','jaguar','jeep','land-rover','lexus','mazda','mercedes','mini','mitsubishi','porsche','saab','seat','smart','subaru','suzuki','vaz'
+car_list_1 = ['alfa-romeo','chevrolet','chrysler','dacia','dodge','fiat','infiniti','jaguar','jeep','land-rover','lexus','mercedes','mini','mitsubishi','porsche','saab','seat','smart','subaru','suzuki','vaz'
 ]
-car_list_2 = ['audi','citroen','ford','hyundai','nissan','opel','peugeot','renault','toyota','volvo'
+car_list_2 = ['audi','citroen','ford','hyundai','nissan','opel','peugeot','renault','toyota','volvo','mazda','kia'
 ]
-car_list_3 = ['honda','kia','skoda','volkswagen'
+car_list_3 = ['honda','skoda','volkswagen'
 ]
 car_list_4 = ['others']
 car_list_5 = ['bmw']
+# car_list_6 = ['kia']
+# car_list_7 = ['kia']
 
 ExcelName = str(today) + ".xlsx"
 list1 = []
@@ -37,16 +39,17 @@ def Get_Number_Of_Ads():
     #     print(span_tags)
 def Getting_Cars(List_Of_Car_Brands,Table_Number):
     df2 = pd.DataFrame()
+    Number_Of_Pages = 200
     for car in List_Of_Car_Brands:
         for x in range(1, Number_Of_Pages):
-            time.sleep(0.5)
+            time.sleep(0.1)
             xhtml = url_get_contents(f"https://www.ss.com/en/transport/cars/{car}/page{x}.html").decode('utf-8')
             p = HTMLTableParser()
             p.feed(xhtml)
             df1 = pd.DataFrame(p.tables[Table_Number])
 
             print(car)
-
+            # print(df1)
             df1.rename(
                 columns={0: 'nothing', 1: 'nothing1', 2: 'Text', 3: 'Model', 4: 'Year', 5: 'Engine', 6: 'Mileage',
                          7: 'Price'}, inplace=True)
@@ -88,10 +91,9 @@ Getting_Cars(car_list_2,7)
 Getting_Cars(car_list_3,5)
 Getting_Cars(car_list_4,2)
 Getting_Cars(car_list_5,3)
-
+# Getting_Cars(car_list_6,7)
 pd.concat(ldf).to_excel(ExcelName)
 
-Get_Number_Of_Ads()
 
 time.sleep(5)
 shutil.move(f"W:\\Coding/PythonProjects\\SS.LV_Scrapping\\{ExcelName}",f"W:\\Coding\\PythonProjects\\ScrappedData\\OneDrive\\Cars")
