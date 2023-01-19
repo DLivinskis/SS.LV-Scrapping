@@ -14,15 +14,15 @@ def url_get_contents(url):
     req = urllib.request.Request(url=url)
     f = urllib.request.urlopen(req)
     return f.read()
-car_list_1 = ['alfa-romeo','chevrolet','chrysler','dacia','dodge','fiat','infiniti','jaguar','jeep','land-rover','lexus','mercedes','mini','mitsubishi','porsche','saab','seat','smart','subaru','suzuki','vaz'
+car_list_1 = ['alfa-romeo','chevrolet','chrysler','dacia','dodge','fiat','infiniti','jaguar','jeep','land-rover','mercedes','mini','mitsubishi','porsche','saab','seat','smart','subaru','suzuki','vaz'
 ]
 car_list_2 = ['audi','citroen','ford','hyundai','nissan','opel','peugeot','renault','toyota','volvo','mazda','kia'
 ]
-car_list_3 = ['honda','skoda','volkswagen'
+car_list_3 = ['honda','skoda','volkswagen','lexus'
 ]
 car_list_4 = ['others']
 car_list_5 = ['bmw']
-# car_list_6 = ['kia']
+# car_list_6 = ['lexus']
 # car_list_7 = ['kia']
 
 ExcelName = str(today) + ".xlsx"
@@ -42,7 +42,7 @@ def Getting_Cars(List_Of_Car_Brands,Table_Number):
     Number_Of_Pages = 200
     for car in List_Of_Car_Brands:
         for x in range(1, Number_Of_Pages):
-            time.sleep(0.1)
+            # time.sleep(0.1)
             xhtml = url_get_contents(f"https://www.ss.com/en/transport/cars/{car}/page{x}.html").decode('utf-8')
             p = HTMLTableParser()
             p.feed(xhtml)
@@ -91,7 +91,7 @@ Getting_Cars(car_list_2,7)
 Getting_Cars(car_list_3,5)
 Getting_Cars(car_list_4,2)
 Getting_Cars(car_list_5,3)
-# Getting_Cars(car_list_6,7)
+# Getting_Cars(car_list_6,5)
 pd.concat(ldf).to_excel(ExcelName)
 
 

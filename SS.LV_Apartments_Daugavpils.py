@@ -46,4 +46,4 @@ for x in range(0, 30):
 
 pd.concat(ldf).to_excel(ExcelName)
 time.sleep(5)
-shutil.move(f"W:\\Coding/PythonProjects\\SS.LV_Scrapping\\{ExcelName}",f"W:\Coding\PythonProjects\ScrappedData\OneDrive\Flats\Daugavpils")
+shutil.move(f"W:\\Coding/PythonProjects\\SS.LV_Scrapping\\{ExcelName}",f"W:\Coding\PythonProjects\ScrappedData\OneDrive\Daugavpils")
