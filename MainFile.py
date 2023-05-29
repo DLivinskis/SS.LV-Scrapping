@@ -17,7 +17,7 @@ def url_get_contents(url):
 ExcelName = str(today) + ".xlsx"
 
 ldf = []
-for x in range(0, 200):
+for x in range(0,200):
     xhtml = url_get_contents(f"https://www.ss.com/en/real-estate/flats/riga/all/page{x}.html").decode('utf-8')
     p = HTMLTableParser()
     p.feed(xhtml)
