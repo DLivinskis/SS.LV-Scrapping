@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 import time
 import os
 import pandas as pd
@@ -18,8 +18,16 @@ path5 = "W:/Coding/PythonProjects/ScrappedData/OneDrive/Flats_Riga_Region/" + st
 paths = [path1,path2,path3,path4,path5]
 
 for path in paths:
-    isExist = os.path.exists(path)
-    list_0.append(path)
-    list_0.append(isExist)
+    try:
+        isExist = os.path.exists(path)
+        size_bytes = os.path.getsize(path)
+        size_bytes = size_bytes/1024
+        size_bytes = round(size_bytes, 2)
+        list_0.append(path)
+        list_0.append(isExist)
+        list_0.append(size_bytes)
+    except:
+        list_0.append('no files')
 send_email(str(list_0))
+# print(list_0)
 print('Email sent out succesfully')
